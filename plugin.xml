@@ -1,0 +1,325 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.plugin.XYPlugin" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <name>XYPlugin</name>
+    <js-module name="XYPlugin" src="www/XYPlugin.js">
+        <clobbers target="cordova.plugins.XYPlugin" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="XYPlugin">
+                <param name="android-package" value="com.plugin.XYPlugin.XYPlugin" />
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="com.xylink.sdk.sample.XyCallActivity"
+                android:configChanges="screenSize|orientation"
+                android:exported="false"
+                android:launchMode="singleTask"
+                android:theme="@style/AppTheme.FullScreen" >
+                <intent-filter>
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </activity>
+            <!-- 被叫功能service -->
+            <service android:name="com.xylink.sdk.sample.IncomingCallService" />
+            <!--分享屏幕悬浮窗service-->
+            <service android:name="com.xylink.sdk.sample.share.screen.RecordService" />
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <!-- 存储 -->
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+            <!-- 网络 -->
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+            <!-- 摄像头 & 麦克风 -->
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>            
+
+            <!-- 保持唤醒 -->
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+            <!-- 悬浮窗权限: 分享屏幕使用 -->
+            <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+            <uses-permission android:name="android.permission.REORDER_TASKS" />
+
+            <!-- <uses-sdk tools:overrideLibrary="com.xylink.sdk" /> -->
+        </config-file>
+        <!-- java -->
+        <source-file src="src/android/XYPlugin.java" target-dir="src/com/plugin/XYPlugin/XYPlugin" />
+        
+        <source-file src="src/android/java/BasePresenter.java" target-dir="src/com/xylink/sdk/sample" />
+        <source-file src="src/android/java/BaseView.java" target-dir="src/com/xylink/sdk/sample" />
+        <source-file src="src/android/java/CallState.java" target-dir="src/com/xylink/sdk/sample" />
+        <source-file src="src/android/java/IncomingCallService.java" target-dir="src/com/xylink/sdk/sample" />
+        <source-file src="src/android/java/XyCallActivity.java" target-dir="src/com/xylink/sdk/sample" />
+        <source-file src="src/android/java/XyCallContract.java" target-dir="src/com/xylink/sdk/sample" />
+        <source-file src="src/android/java/XyCallPresenter.java" target-dir="src/com/xylink/sdk/sample" />
+
+        <!-- java/view -->
+        <source-file src="src/android/java/view/CachedLayoutPosition.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/CellRectView.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/CellStateView.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/CustomAlertDialog.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/FeccBar.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/GalleryVideoView.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/SpeakerVideoGroup.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/VideoCell.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/VideoCellGroup.java" target-dir="src/com/xylink/sdk/sample/view" />
+        <source-file src="src/android/java/view/VideoCellLayout.java" target-dir="src/com/xylink/sdk/sample/view" />   
+        
+        <!-- java/utils -->
+        <source-file src="src/android/java/utils/ActivityUtils.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/CollectionUtils.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/CommonTime.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/GalleryLayoutBuilder.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/LayoutMode.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/SizeConvert.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/SpeakerLayoutBuilder.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/TextUtils.java" target-dir="src/com/xylink/sdk/sample/utils" />
+        <source-file src="src/android/java/utils/VolumeManager.java" target-dir="src/com/xylink/sdk/sample/utils" />
+
+        <!-- java/share -->
+        <source-file src="src/android/java/share/SharingValues.java" target-dir="src/com/xylink/sdk/sample/share" />
+        <!-- java/share/picture -->
+        <source-file src="src/android/java/share/picture/CirclePageIndicator.java" target-dir="src/com/xylink/sdk/sample/share/picture" />
+        <source-file src="src/android/java/share/picture/Glide4Engine.java" target-dir="src/com/xylink/sdk/sample/share/picture" />
+        <source-file src="src/android/java/share/picture/PageIndicator.java" target-dir="src/com/xylink/sdk/sample/share/picture" />
+        <source-file src="src/android/java/share/picture/PictureFragment.java" target-dir="src/com/xylink/sdk/sample/share/picture" />
+        <source-file src="src/android/java/share/picture/PicturePagerAdapter.java" target-dir="src/com/xylink/sdk/sample/share/picture" />
+        <!-- java/share/screen -->
+        <source-file src="src/android/java/share/screen/RecordService.java" target-dir="src/com/xylink/sdk/sample/share/screen" />  
+        <source-file src="src/android/java/share/screen/ScreenPresenter.java" target-dir="src/com/xylink/sdk/sample/share/screen" />  
+        <!-- java/share/whiteboard/message -->
+        <source-file src="src/android/java/share/whiteboard/message/Line.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/message" />
+        <source-file src="src/android/java/share/whiteboard/message/PenType.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/message" />
+        <source-file src="src/android/java/share/whiteboard/message/Point.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/message" />
+        <source-file src="src/android/java/share/whiteboard/message/ShaderHelper.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/message" />
+        <source-file src="src/android/java/share/whiteboard/message/Vec2f.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/message" />
+        <source-file src="src/android/java/share/whiteboard/message/VetexDataBuffer.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/message" />  
+        <!-- java/share/whiteboard/view -->
+        <source-file src="src/android/java/share/whiteboard/view/MuteImageView.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/view" />
+        <source-file src="src/android/java/share/whiteboard/view/WhiteBoardCell.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/view" />
+        <source-file src="src/android/java/share/whiteboard/view/WhiteBoardTextureView.java" target-dir="src/com/xylink/sdk/sample/share/whiteboard/view" />
+        
+        <!-- java/net -->
+        <source-file src="src/android/java/net/BaseHttpObserver.java" target-dir="src/com/xylink/sdk/sample/net" />
+        <source-file src="src/android/java/net/DefaultHttpObserver.java" target-dir="src/com/xylink/sdk/sample/net" />
+
+        <!-- java/face -->
+        <source-file src="src/android/java/face/FaceGroupView.java" target-dir="src/com/xylink/sdk/sample/face" />
+        <source-file src="src/android/java/face/FaceInfoCache.java" target-dir="src/com/xylink/sdk/sample/face" />
+        <source-file src="src/android/java/face/FaceView.java" target-dir="src/com/xylink/sdk/sample/face" />
+        <source-file src="src/android/java/face/FaceViewCache.java" target-dir="src/com/xylink/sdk/sample/face" />
+
+        <!-- anim -->
+        <source-file src="src/android/res/anim/rotate.xml" target-dir="res/anim" />
+        
+        <!-- layout -->
+        <source-file src="src/android/res/layout/activity_call.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/cell_state_view.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/conversation_whiteboard_cell.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/fragment_picture.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/layout_face_view.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/layout_fecc_control.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/layout_float_share_screen.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/layout_share_screen.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/layout_whiteboard_loading.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/view_alertdialog.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/view_call_detail.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/view_call_invite.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/volume_layout.xml" target-dir="res/layout" />
+
+        <!-- values -->
+        <resource-file src="src/android/res/values/attr.xml" target="res/values" />
+        <resource-file src="src/android/res/values/colors.xml" target="res/values" />
+        <resource-file src="src/android/res/values/dimens.xml" target="res/values" />
+        <resource-file src="src/android/res/values/strings.xml" target="res/values" />
+        <resource-file src="src/android/res/values/styles.xml" target="res/values" />
+
+        <!-- xml -->
+        <source-file src="src/android/res/xml/device_filter.xml" target-dir="res/xml" />
+
+        <!-- drawable -->
+        <source-file src="src/android/res/drawable/alert_dialog_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/bg_cell_state_big.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/bg_toolbar_fecc_pan.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/bg_toolbar_state_recording.9.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/bg_white_button_pressed.9.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/bg_white_button.9.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/call_live_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/call_more_list_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/desk_accept_clicked.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/desk_accept.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/desk_refuse_clicked.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/desk_refuse.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/divider_line.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/fecc_down_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/fecc_left_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/fecc_right_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/fecc_up_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/ic_toolbar_end_speech.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/lock_people_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/round_corner_white.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/round_fill_corner_white.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/screen_icon_phone.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/shape_label_orange.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/stop_sharescreen.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/toolbar_button_bg_style.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/video_display_name_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_black.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_blue.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_clear_all.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_colorselect_back.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_eraser_selected.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_eraser.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_mark_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_marker_selected.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_marker.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_pencil_selected.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_pencil.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_red.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/whiteboard_yellow.png" target-dir="res/drawable" />        
+
+        <source-file src="src/android/res/drawable-xhdpi/bg_cell_state_big.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/bg_face_view_face.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/bg_face_view_name_big.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/bg_face_view_name_small.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/bg_volume_adjust.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_down_disabled.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_down.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_left_disabled.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_left.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_middle_icon_press.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_middle_icon.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_right_disabled.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_right.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_up_disabled.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/fecc_up.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/hangup_new.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_cancle_addother.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_cell_state_loading_small.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_toolbar_recording_ing.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_toolbar_recording.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_toolbar_state_recording.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_volume_mute.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_volume_num_bg.9.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_volume_num_front.9.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_volume_un_mute.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/icon_addother_imcoming_turn.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/mic_off_small.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/mic_off.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/more.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/network_state_four.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/network_state_one.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/network_state_three.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/network_state_two.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/pstn_incall.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/video_suspend.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/zoom_in_add.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/zoom_in_plus.png" target-dir="res/drawable-xhdpi" />         
+
+        <source-file src="src/android/res/drawable-xxhdpi/bg_cell_state_big.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/bg_face_view_face.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/bg_face_view_name_big.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/bg_face_view_name_small.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/bg_volume_adjust.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_down_disabled.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_down.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_left_disabled.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_left.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_middle_icon_press.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_middle_icon.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_right_disabled.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_right.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_up_disabled.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/fecc_up.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/hangup_new.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_cancle_addother.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_cell_state_loading_small.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_toolbar_recording_ing.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_toolbar_recording.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_volume_mute.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_volume_num_bg.9.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_volume_num_front.9.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_volume_un_mute.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/icon_addother_imcoming_turn.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/mic_off_small.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/mic_off.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/more.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/network_state_four.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/network_state_one.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/network_state_three.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/network_state_two.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/pstn_incall.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/video_suspend.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/zoom_in_add.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/zoom_in_plus.png" target-dir="res/drawable-xxhdpi" /> 
+
+        <!-- mipmap -->
+        <source-file src="src/android/res/mipmap-xhdpi/bg_cell_state_big.jpg" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/bg_toolbar_white_disabled.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/bg_toolbar_white_pressed.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/bg_toolbar_white.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/bg_toolbar_yellow_pressed.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/bg_toolbar_yellow.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_call_accept.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_cancle_addother.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_cell_state_loading_small.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_contact_user_capture_no_border.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_svc_toolbar_switch_camera.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_audio_only_pressed.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_audio_only.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_camera_muted.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_camera.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_mic_muted.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_mic.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_p2p_hangup_pressed.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/ic_toolbar_recording_ing.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/icon_addother_imcoming_turn.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/mic_off_small.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/mic_off.png" target-dir="res/mipmap-xhdpi" />
+        <source-file src="src/android/res/mipmap-xhdpi/video_suspend.png" target-dir="res/mipmap-xhdpi" />
+
+        <source-file src="src/android/res/mipmap-xxhdpi/bg_cell_state_big.jpg" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/ic_cancle_addother.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/ic_cell_state_loading_small.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/ic_toolbar_end_speech.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/ic_toolbar_hand_up.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/ic_toolbar_handdown.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/icon_addother_imcoming_turn.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/mic_off_small.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/mic_off.png" target-dir="res/mipmap-xxhdpi" />
+        <source-file src="src/android/res/mipmap-xxhdpi/video_suspend.png" target-dir="res/mipmap-xxhdpi" />
+
+        <!-- assets -->
+        <source-file src="src/android/assets/ring.ogg" target-dir="assets" />
+
+        <!-- 包文件 -->
+        <source-file src="src/android/libs/xylink-android-sdk-2.27.0.aar" target-dir="libs" />
+        
+        <!-- 编译配置-->
+        <framework src="src/android/XYPlugin.gradle" custom="true" type="gradleReference" />
+
+        <framework src="com.android.support:appcompat-v7:27.0.0" />
+        <framework src="com.android.support.constraint:constraint-layout:1.1.3" />
+        <framework src="com.squareup.okhttp3:okhttp:3.11.0" />
+        
+        <framework src="com.squareup.retrofit2:retrofit:2.4.0" />
+        <framework src="com.github.tbruyelle:rxpermissions:0.10.2" />
+        <framework src="com.jakewharton.rxbinding2:rxbinding:2.2.0" />
+
+        <framework src="com.zhihu.android:matisse:0.5.1" />
+        <framework src="com.github.bumptech.glide:glide:4.7.1" />
+
+        <framework src="com.google.code.gson:gson:2.8.5" />
+        <framework src="io.reactivex.rxjava2:rxjava:2.2.0" />
+        <framework src="io.reactivex.rxjava2:rxandroid:2.0.2" />
+    </platform>
+</plugin>

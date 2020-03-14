@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_floating_window"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null">
+
+    <RelativeLayout
+        android:layout_width="142dp"
+        android:layout_height="40dp"
+        android:alpha="0.7"
+        android:background="@drawable/round_fill_corner_white"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
+
+    <RelativeLayout
+        android:layout_width="142dp"
+        android:layout_height="40dp"
+        android:alpha="0.7"
+        android:background="@drawable/round_corner_white"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
+
+    <LinearLayout
+        android:id="@+id/iv_gomain_layout"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_gomain"
+            android:layout_gravity="center_horizontal"
+            android:text="返回应用"
+            android:textColor="@color/white_90"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/gray_split_line"
+        android:layout_width="1dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white_90"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/ll_floating_window_menu"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="71dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/stop_sharescreen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_close"
+            android:layout_gravity="center_horizontal"
+            android:text="结束分享"
+            android:textColor="@color/white_90"
+            android:textSize="8sp" />
+    </LinearLayout>
+</FrameLayout>

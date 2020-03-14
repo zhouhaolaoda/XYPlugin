@@ -1,0 +1,21 @@
+repositories{
+    jcenter()
+    flatDir{
+        dirs 'libs'
+    }
+}
+
+repositories {
+    maven { url "https://maven.google.com" }
+    jcenter()
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+    }
+    google()
+}
+
+dependencies {
+    implementation(name: 'xylink-android-sdk-2.27.0', ext: 'aar')
+}
